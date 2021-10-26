@@ -1,0 +1,3 @@
+The codes contained in this branch pretain to the calibration of the load cells. 
+
+Using an H7X11, four load cells, are connected to an Arduino Nano Clone, with an ATMEL 328p processor. 
