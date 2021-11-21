@@ -3,7 +3,8 @@
 /*Global Varibles*/
 float weight = 0;              //weight read in from scale
 float percent_cat = 0;         //value returned from the computer vision program
-int angle = 0;                 //current location of the servo motors (0 == closed, 90 == open)
+int angle_R = 0;                 //current location of the servo motors (0 == closed, 90 == open)
+int angle_L = 180;
 int cv_timeout_count = 0;      //Tracks the number of times the computer vision software has failed to return a value in a row
 int bowl_timeout_count = 0;    //Tracks the number of times the bowl time out has occured in a row
 
@@ -19,10 +20,10 @@ void setup() {
   scale.set_scale(calibration_factor);  //Applying the calibration factor to the sacle
 
   /*Initalizing Servo Motors*/
-  Joint1.attach(SERVO1);
-  Joint2.attach(SERVO2);
-  Joint2.write(angle);
-  Joint1.write(angle);
+  Joint_L.attach(SERVO_L);
+  Joint_R.attach(SERVO_R);
+  Joint_R.write(angle_R);
+  Joint_L.write(angle_L);
 
   /*Initalizing Warning Lights*/
   pinMode(CV_LED, OUTPUT);
@@ -36,7 +37,7 @@ void loop() {
 
   /*Check Scale*/
   weight = scale.get_units(15);
-
+  
   if (weight > cat_min) {
     computer_vision();
 
@@ -82,10 +83,11 @@ void computer_vision() {
 
 void openning() {
 
-  while (angle < bowl_open) { //Open the bowl incrementally until maxxium angle reached
-    angle++;
-    Joint1.write(angle);
-    Joint2.write(angle);
+  while (angle_R < bowl_open) { //Open the bowl incrementally until maxxium angle reached
+    angle_R++;
+    angle_L--;
+    Joint_L.write(angle_L);
+    Joint_R.write(angle_R);
   }
 
   is_open();
@@ -119,10 +121,11 @@ void is_open() {
 
 void closing() {
 
-  while (angle > bowl_closed) { //Open the bowl incrementally until maxxium angle reached
-    angle--;
-    Joint1.write(angle);
-    Joint2.write(angle);
+  while (angle_R > bowl_closed) { //Open the bowl incrementally until maxxium angle reached
+    angle_R--;
+    angle_L++;
+    Joint_L.write(angle_L);
+    Joint_R.write(angle_R);
   }
 }
 

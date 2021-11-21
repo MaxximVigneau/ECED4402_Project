@@ -8,8 +8,8 @@
   /*Pin Defintions*/
   #define DT 3        //Data out is connected to D3 
   #define SCLK 2      //clock IN is conected to D2 
-  #define SERVO1 10   //Servo1 is conected to D10 
-  #define SERVO2 11   //Servo2 is connect to D11
+  #define SERVO_L 10   //Left Servo is conected to D10 
+  #define SERVO_R 11   //Right Servo is connect to D11
   #define CV_LED 4    //Computer Vison Warning light is connected to D4 (RED LIGHT)
   #define BOWL_LED 5  //Bowl Timeout Warning light is connected to D5 (BLUE LIGHT) 
 
@@ -24,8 +24,8 @@
 
   /*Object Definitions*/
   HX711 scale;    //Declaring a object of type HX711
-  Servo Joint1;   //Declaring a Servo object
-  Servo Joint2;   //Declaring a Servo object
+  Servo Joint_L;   //Declaring a Servo object
+  Servo Joint_R;   //Declaring a Servo object
 
   /*Function Protoypes*/
   void computer_vision();
